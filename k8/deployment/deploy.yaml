@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-deployment
+  labels:
+    app: backend
+  annotations:
+    kubernetes.io/change-cause: "changed container port to 80"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: pod-label
+  template:
+    metadata:
+      labels:
+        app: pod-label
+    spec:
+      containers:
+      - name: cont1
+        image: nginx:alpine
+        ports:
+        - containerPort: 80
