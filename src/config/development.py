@@ -1,5 +1,5 @@
 from src.config.config import CommonSettings
 
 class DevSettings(CommonSettings):
-    debug_mode = True
-    database_url = "etc"
+    debug_mode: bool = True
+    database_url: str = "etc"

@@ -7,12 +7,12 @@ from src.config.development import DevSettings
 load_dotenv()
 
 env_value = os.environ.get("ENV")
-port_value = os.environ.get("PORT")
+
 
 match env_value:
     case "staging":
-        settings = StagingSettings(env=env_value, port=port_value)
+        settings = StagingSettings(env=env_value, )
     case "production":
-        settings = ProductionSettings(env=env_value, port=port_value)
+        settings = ProductionSettings(env=env_value, )
     case _:
-        settings = DevSettings(env=env_value, port=port_value)
+        settings = DevSettings(env=env_value, )

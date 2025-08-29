@@ -1,20 +1,25 @@
-import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
 from src.config import settings
 from src.common.utils.datetime import now
+from src.api.publish.router import publish_router  # Adjust the import path as needed
+
 
 app = FastAPI(
     title=settings.app_name,
     debug=settings.debug_mode,
     openapi_url=settings.openapi_url,
     docs_url=settings.docs_url,
+    root_path="/api/v1"  
 )
+
+
+app.include_router(publish_router)
 
 @app.get("/health", tags=["health"])
 def health_check():
-    return {"status": "ok"}
+    return {"status": "ok", "env": settings.env, "timestamp": now().isoformat()}
 
 @app.exception_handler(Exception)
 async def generic_exception_handler(request: Request, exc: Exception):
@@ -27,10 +32,3 @@ async def generic_exception_handler(request: Request, exc: Exception):
             "error": str(exc)
         },
     )
-
-if __name__ == "__main__":
-    
-    if settings.env == "development":
-        uvicorn.run("src.main:app", host="127.0.0.1", port=settings.port, reload=True)
-    elif settings.env in ("staging", "production"):
-        uvicorn.run("src.main:app", host="0.0.0.0", port=settings.port)

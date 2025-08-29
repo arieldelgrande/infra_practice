@@ -1,5 +1,5 @@
 from src.config.config import CommonSettings
 
 class ProductionSettings(CommonSettings):
-    debug_mode = False
-    database_url = "etc"
+    debug_mode: bool = False
+    database_url: str = "etc"

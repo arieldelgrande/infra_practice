@@ -11,6 +11,7 @@ class CommonSettings(BaseSettings):
     debug_mode: bool = False
     docs_url: str = "/"
     openapi_url: str = "/openapi.json"
+    redoc_url: str = "/redoc"
     
     @classmethod
     def settings_customise_sources(
