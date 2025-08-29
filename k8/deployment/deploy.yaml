@@ -5,7 +5,7 @@ metadata:
   labels:
     app: backend
   annotations:
-    kubernetes.io/change-cause: "changed container port to 80"
+    kubernetes.io/change-cause: "changed image to nginx:alpine"
 spec:
   replicas: 3
   selector:
