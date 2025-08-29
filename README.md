@@ -17,8 +17,6 @@ This project includes various Kubernetes manifests for deploying pods, replicas,
 
 ```
 infra_practice/
-├── README.md
-├── requirements.txt
 ├── k8/
 │   ├── deployment/
 │   │   └── deploy.yaml
@@ -28,7 +26,7 @@ infra_practice/
 │   │   └── podtest2.yml
 │   └── replicas/
 │       └── replica1.yml
-└── src/
+├── README.md
 ```
 
 ## Usage
