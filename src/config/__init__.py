@@ -11,8 +11,14 @@ env_value = os.environ.get("ENV")
 
 match env_value:
     case "staging":
-        settings = StagingSettings(env=env_value, )
+        settings = StagingSettings(
+            env=env_value,
+        )
     case "production":
-        settings = ProductionSettings(env=env_value, )
+        settings = ProductionSettings(
+            env=env_value,
+        )
     case _:
-        settings = DevSettings(env=env_value, )
+        settings = DevSettings(
+            env=env_value,
+        )

@@ -1,10 +1,12 @@
 from typing import Literal, Type
 from pydantic_settings import BaseSettings, PydanticBaseSettingsSource
 
+
 class CommonSettings(BaseSettings):
     """
     Base settings for FastAPI application.
     """
+
     app_name: str = "My FastAPI Application"
     admin_email: str = "ariel.delgrande@meltwater.com"
     env: Literal["development", "staging", "production", "testing"] = "development"
@@ -12,7 +14,7 @@ class CommonSettings(BaseSettings):
     docs_url: str = "/"
     openapi_url: str = "/openapi.json"
     redoc_url: str = "/redoc"
-    
+
     @classmethod
     def settings_customise_sources(
         cls,
