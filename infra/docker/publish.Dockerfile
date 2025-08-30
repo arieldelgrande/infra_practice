@@ -38,7 +38,6 @@ FROM base AS test
 
 # Copy application code
 COPY src/ ./src
-COPY .env ./
 COPY tests/ ./tests
 
 # Set Python path
@@ -61,7 +60,6 @@ RUN groupadd -r appgroup && useradd -r -g appgroup appuser
 
 # Copy application code with proper ownership
 COPY --chown=appuser:appgroup src/ ./src
-COPY --chown=appuser:appgroup .env ./
 
 # Switch to non-root user
 USER appuser

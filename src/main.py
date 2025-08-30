@@ -12,15 +12,17 @@ app = FastAPI(
     debug=settings.debug_mode,
     openapi_url=settings.openapi_url,
     docs_url=settings.docs_url,
-    root_path="/api/v1"  
+    root_path="/api/v1",
 )
 
 
 app.include_router(publish_router)
 
+
 @app.get("/health", tags=["health"])
 def health_check():
     return {"status": "ok", "env": settings.env, "timestamp": now().isoformat()}
+
 
 @app.exception_handler(Exception)
 async def generic_exception_handler(request: Request, exc: Exception):
@@ -30,9 +32,10 @@ async def generic_exception_handler(request: Request, exc: Exception):
             "Success": False,
             "timestamp": now().isoformat(),
             "detail": "Internal Server Error",
-            "error": str(exc)
+            "error": str(exc),
         },
     )
+
 
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request: Request, exc: RequestValidationError):
@@ -45,6 +48,6 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
         content={
             "success": False,
             "missing_fields": missing_fields,
-            "detail": exc.errors()
+            "detail": exc.errors(),
         },
     )
