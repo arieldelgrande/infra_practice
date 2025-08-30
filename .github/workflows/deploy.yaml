@@ -3,7 +3,7 @@ name: deploy and push Docker image
 on:
   push:
     branches: [ "main" ]
-  pull_request:
+  
 
 jobs:
   # 1. Fast unit tests (outside Docker)
