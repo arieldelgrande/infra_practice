@@ -89,8 +89,8 @@ jobs:
           echo -e "\e[1;34m---------------------------------------------------------------------------\e[0m"
 
           # Prepare build arguments
-          if [ -n "ENV=staging" ]; then
-            build_args_str="--build-arg $(echo ENV=staging | sed 's/,/ --build-arg /g')"
+          if [ -n "staging" ]; then
+            build_args_str="--build-arg $(echo staging | sed 's/,/ --build-arg /g')"
           fi
           
           echo "Building Docker image..."
