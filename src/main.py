@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
+from fastapi.exceptions import RequestValidationError
 
 from src.config import settings
 from src.common.utils.datetime import now
@@ -30,5 +31,20 @@ async def generic_exception_handler(request: Request, exc: Exception):
             "timestamp": now().isoformat(),
             "detail": "Internal Server Error",
             "error": str(exc)
+        },
+    )
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request: Request, exc: RequestValidationError):
+    missing_fields = []
+    for error in exc.errors():
+        if error["type"] == "missing":
+            missing_fields.append(error["loc"][-1])
+    return JSONResponse(
+        status_code=422,
+        content={
+            "success": False,
+            "missing_fields": missing_fields,
+            "detail": exc.errors()
         },
     )
