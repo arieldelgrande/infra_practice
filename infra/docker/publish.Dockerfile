@@ -45,7 +45,7 @@ WORKDIR /app
 
 # ---------- Test Stage ----------
 FROM base AS test
-FROM base AS test
+
 
 # Copy application code
 USER root
