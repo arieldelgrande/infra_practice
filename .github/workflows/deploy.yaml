@@ -25,6 +25,8 @@ jobs:
 
       - name: Run unit tests
         run: poetry run pytest tests/ -v --maxfail=3
+        env:
+          env: "test"
 
   # 2. Docker build + integration tests
   docker-integration:
