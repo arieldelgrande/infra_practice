@@ -43,7 +43,8 @@ jobs:
 
   # 3. Build docker for staging and push production image to aws ECR (only on main)
   build_dockers_for_staging:
-    runs-on: [ "self-hosted", "aws", "linux", "x64", "prod" ]
+    runs-on: ubuntu-latest
+    needs: [unit-tests, docker-integration]   # only run if unit tests and
     concurrency:
       group: build-${{ github.ref }}-staging-${{ matrix.name }}
       cancel-in-progress: true
