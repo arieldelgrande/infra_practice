@@ -1,0 +1,10 @@
+.vscode/
+.env
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+.idea/
+migrations/
+instance/
+.ruff_cache/

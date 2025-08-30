@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "k8-hands-on"
+version = "0.0.0"
+description = "a proyect to practice k8"
+authors = ["arieldelgrande <ariel.delgrande@meltwater.com>"]
+readme = "README.md"
+packages = [
+    { include = "src" }
+]
+
+
+[tool.poetry.dependencies]
+python = "3.13.3"
+fastapi = { extras = ["standard"], version = "^0.115.12" }
+pydantic-settings = "^2.10.1"
+python-dotenv = "^1.1.1"
+pytest = "^7.0"
+pytest-asyncio = "^0.18.3"
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
