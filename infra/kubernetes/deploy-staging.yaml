@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: publish-deployment
+  labels:
+    app: publish
+  annotations:
+    kubernetes.io/change-cause: "initial deploy of publish app"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: publish
+  template:
+    metadata:
+      labels:
+        app: publish
+    spec:
+      imagePullSecrets:
+        - name: publish-ecr-secret
+      containers:
+        - name: publish
+          image: 992382530736.dkr.ecr.us-east-1.amazonaws.com/publish:latest
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+            - name: ENV
+              value: "staging"
+            - name: AWS_DEFAULT_REGION
+              value: "us-east-1"
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: publish-aws
+                  key: aws_access_key_id
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: publish-aws
+                  key: aws_secret_access_key
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: publish-service
+  labels:
+    app: publish
+spec:
+  selector:
+    app: publish
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 8080
