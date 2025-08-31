@@ -3,6 +3,10 @@ name: deploy and push Docker image
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - 'src/**'
+      - 'infra/docker/**'
+      - '.github/workflows/deploy.yaml'
   
 
 jobs:
