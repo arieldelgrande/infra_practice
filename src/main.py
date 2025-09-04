@@ -3,9 +3,9 @@ from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
 from src.config import settings
 from src.common.utils.datetime import now
-from src.api.publish.router import publish_router  
+from src.api.publish.router import publish_router
 from src.common.utils.observability.middleware import Observability
-from src.common.utils.observability.logger import logger 
+from src.common.utils.observability.logger import logger
 
 observability = Observability(tracer_name="publish_tracer", meter_name="publish_metric")
 
@@ -24,9 +24,20 @@ app.include_router(publish_router)
 
 @app.get("/health", tags=["health"])
 def health_check():
-
-    observability.create_traced_publish_item({"service.name": settings.app_name, "environment": settings.env, "status": "healthy"})
-    observability.create_metric_publish_item({"service.name": settings.app_name, "environment": settings.env, "status": "healthy"})
+    observability.create_traced_publish_item(
+        {
+            "service.name": settings.app_name,
+            "environment": settings.env,
+            "status": "healthy",
+        }
+    )
+    observability.create_metric_publish_item(
+        {
+            "service.name": settings.app_name,
+            "environment": settings.env,
+            "status": "healthy",
+        }
+    )
     logger.info("Health check endpoint called")
     return {"status": "ok", "env": settings.env, "timestamp": now().isoformat()}
 
@@ -58,5 +69,6 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
             "detail": exc.errors(),
         },
     )
+
 
 # FastAPIInstrumentor.instrument_app(app)

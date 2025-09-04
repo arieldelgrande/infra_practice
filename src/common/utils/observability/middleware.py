@@ -35,7 +35,7 @@ class Observability:
         with self.tracer.start_as_current_span(self.tracer_name) as span:
             item_str = json.dumps(data, default=str)
             span.set_attribute("publish.value", item_str)
-        return item
+        return item 
 
     def create_metric_publish_item(self, item: Any):
         """

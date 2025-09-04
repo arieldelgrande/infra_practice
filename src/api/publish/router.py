@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 from src.api.publish.models import PublishItem, PublishResponse
 from src.common.utils.observability.logger import logger
+
 publish_router = APIRouter(prefix="/publish", tags=["publish"])
 
 
