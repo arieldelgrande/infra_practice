@@ -6,7 +6,7 @@ from src.config.development import DevSettings
 
 load_dotenv()
 
-env_value = os.environ.get("ENV")
+env_value = os.environ.get("ENVIRONMENT")
 
 
 match env_value:
