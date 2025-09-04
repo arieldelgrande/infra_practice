@@ -2,15 +2,17 @@ import json
 from typing import Any, Mapping
 from opentelemetry import trace, metrics
 
+
 class Observability:
-    def __init__(self, tracer_name: str = "default_tracer", meter_name: str = "default_meter"):
+    def __init__(
+        self, tracer_name: str = "default_tracer", meter_name: str = "default_meter"
+    ):
         self.tracer_name = tracer_name
         self.meter_name = meter_name
         self.tracer = trace.get_tracer(self.tracer_name)
         self.meter = metrics.get_meter(self.meter_name)
         self.publish_items_counter = self.meter.create_counter(
-            name="publish_items_total",
-            description="Total number of publish items"
+            name="publish_items_total", description="Total number of publish items"
         )
 
     def get_tracer_name(self) -> str:
@@ -35,7 +37,7 @@ class Observability:
         with self.tracer.start_as_current_span(self.tracer_name) as span:
             item_str = json.dumps(data, default=str)
             span.set_attribute("publish.value", item_str)
-        return item 
+        return item
 
     def create_metric_publish_item(self, item: Any):
         """
