@@ -6,6 +6,16 @@ metadata:
     name: publish-staging
 ---
 apiVersion: v1
+kind: Secret
+metadata:
+  name: publish-aws
+  namespace: publish-staging
+type: Opaque
+stringData:
+  aws_access_key_id: "your_access_key_id"
+  aws_secret_access_key: "your_secret_access_key"
+---
+apiVersion: v1
 kind: ResourceQuota
 metadata:
   name: publish-staging
@@ -114,3 +124,32 @@ spec:
       protocol: TCP
       port: 80
       targetPort: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: publish-ingress
+  namespace: publish-staging
+  annotations:
+    # kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/rewrite-target: "/"   # Uncomment if you want path rewrites
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: publish.local.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: publish-service
+                port:
+                  number: 80 
+      
+  # Optional TLS block (requires a TLS secret)
+  # tls:
+  #   - hosts:
+  #       - publish.staging.example.com
+  #     secretName: publish-staging-tls
+  

@@ -7,7 +7,7 @@ class CommonSettings(BaseSettings):
     Base settings for FastAPI application.
     """
 
-    app_name: str = "My FastAPI Application"
+    app_name: str = "Publish Service"
     admin_email: str = "ariel.delgrande@meltwater.com"
     env: Literal["development", "staging", "production", "testing"] = "development"
     debug_mode: bool = False

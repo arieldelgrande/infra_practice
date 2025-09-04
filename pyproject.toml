@@ -14,6 +14,9 @@ gunicorn = "^22.0.0"
 fastapi = { extras = ["standard"], version = "^0.115.12" }
 pydantic-settings = "^2.10.1"
 python-dotenv = "^1.1.1"
+opentelemetry-distro = "^0.57b0"
+opentelemetry-exporter-otlp = "^1.36.0"
+python-json-logger = "^3.3.0"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^8.3.5"
