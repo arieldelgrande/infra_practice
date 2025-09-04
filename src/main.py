@@ -1,4 +1,3 @@
-import logging
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from fastapi.exceptions import RequestValidationError
@@ -7,7 +6,6 @@ from src.common.utils.datetime import now
 from src.api.publish.router import publish_router  
 from src.common.utils.observability.middleware import Observability
 from src.common.utils.observability.logger import logger 
-from opentelemetry import trace
 
 observability = Observability(tracer_name="publish_tracer", meter_name="publish_metric")
 

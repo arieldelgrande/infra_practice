@@ -1,5 +1,5 @@
 import json
-from typing import Any, Mapping, Optional
+from typing import Any, Mapping
 from opentelemetry import trace, metrics
 
 class Observability:
